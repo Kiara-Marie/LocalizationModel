@@ -59,8 +59,7 @@ namespace {
 //
 // </TechnicalDetails>
 
-
-
+int MIN_N = 30;
 
 // Tests that the date given is correct
 TEST(UtilsTest,GetDate) {
@@ -114,20 +113,31 @@ TEST(RunSim1D,IsSymmetric){
     EXPECT_FALSE(is_symmetric(C));
 }
 
+TEST(RunSim1D, GetNs){
+    double W = 15;
+    int len = 30;
+    vec nValues = getNs(len,W);
+
+    for (int i = 0; i < len; i++){
+        EXPECT_GE(nValues(i), MIN_N);
+        EXPECT_LE(nValues(i), MIN_N + W);
+    }
+}
+
 TEST(RunSim1D, SimpleSims){
     Constant testJC = Constant(4,0,0);
-
+    double W = 3;
+    double t = 4;
     // unsymmetric matrix shouldn't throw an error, since it should be overwritten
     mat notSymMat = { {1, 2, 1},
                       {2, 2, 3},
                       {1, 4, 3}
                     };
-    EXPECT_NO_THROW(runSim1D(3,3,notSymMat, testJC));
-    notSymMat.print();
+    EXPECT_NO_THROW(runSim1D(W,3,notSymMat, testJC));
     for (int i = 0; i<3;i++){
         for (int j = 0 ; j<3; j++){
             if (i != j){
-                EXPECT_EQ(notSymMat(i,j),4);
+                EXPECT_EQ(notSymMat(i,j),t);
             } else {
                 EXPECT_LE(notSymMat(i,j),1);
                 EXPECT_GT(notSymMat(i,j),0);
@@ -149,7 +159,6 @@ TEST(RunSimA, SimpleSims){
                       {1, 4, 3}
                     };
     EXPECT_NO_THROW(runSimA(3,3,notSymMat, testJC));
-    notSymMat.print();
     for (int i = 0; i<3;i++){
         for (int j = 0 ; j<3; j++){
             if (i != j){
@@ -165,6 +174,46 @@ TEST(RunSimA, SimpleSims){
     EXPECT_ANY_THROW(runSimA(0,3,notSymMat,testJC));
 
 }
+
+TEST(RunSimSimple, SimpleSims){
+    double W = 5;
+    double t = 4;
+    Constant testJC = Constant(t,0,0);
+
+    // unsymmetric matrix shouldn't throw an error, since it should be overwritten
+    mat notSymMat = { {1, 2, 1},
+                      {2, 2, 3},
+                      {1, 4, 3}
+                    };
+    EXPECT_NO_THROW(runSimSimple(W,3,notSymMat, testJC));
+    for (int i = 0; i<3;i++){
+        for (int j = 0 ; j<3; j++){
+            if (i != j){
+                EXPECT_EQ(notSymMat(i,j),t);
+            } else {
+                double halfW = W/2;
+                EXPECT_LE(notSymMat(i,j),halfW);
+                EXPECT_GT(notSymMat(i,j),-1*halfW);
+            }
+        }
+    }
+
+    int lenA = 20;
+    mat A(lenA,lenA);
+    // W = 0 should give 2 on all diagonal entries
+    EXPECT_NO_THROW(runSimSimple(0, lenA, A, testJC));
+    for (int i = 0; i<lenA;i++){
+        for (int j = 0 ; j<lenA; j++){
+            if (i != j){
+                EXPECT_EQ(A(i,j),t);
+            } else {
+                EXPECT_EQ(A(i,j),2);
+            }
+        }
+    }
+
+}
+
 
 
 

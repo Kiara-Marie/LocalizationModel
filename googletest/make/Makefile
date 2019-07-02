@@ -36,7 +36,7 @@ GTEST_LIBS = libgtest.a libgtest_main.a
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = sample1_unittest myFirstTest
+TESTS = sample1_unittest mostTests
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -105,9 +105,9 @@ sample1_unittest : sample1.o sample1_unittest.o $(GTEST_LIBS)
 epsilonSum1D: $(objects)
 	$(CXX) epsilonSum1D.cpp $(CXXFLAGS) -o epsilonSum1D $(objects)
 
-myFirstTest.o : ../myTests/myFirstTest.cc \
+mostTests.o : ../myTests/mostTests.cc \
                     ../../metrics/utils.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ../myTests/myFirstTest.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ../myTests/mostTests.cc
 
-myFirstTest : $(objects) myFirstTest.o $(GTEST_LIBS)
+mostTests : $(objects) mostTests.o $(GTEST_LIBS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L$(GTEST_LIB_DIR) -lgtest_main -lpthread $^ -o $@

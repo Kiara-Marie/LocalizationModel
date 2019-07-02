@@ -4,7 +4,7 @@ double QD0 = 1.21;
 double QD1 = 0.7286;
 double QD2 = -0.05;
 
-// g as determined by  Murgu, E.; Martin, J. D. D.; Gallagher, T. F..
+// Quantum defect as determined by  Murgu, E.; Martin, J. D. D.; Gallagher, T. F..
 // The Journal of Chemical Physics 2001,115(15),7032–7040.
 double QD3 = 0.0101;
 double QDE = 0;
