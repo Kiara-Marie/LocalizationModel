@@ -5,7 +5,7 @@
 #include <armadillo>
 #include <string>
 #include "jComputer.h"
-#include "runSim1D.h"
+#include "runSimRyd.h"
 
 using namespace std;
 using namespace arma;

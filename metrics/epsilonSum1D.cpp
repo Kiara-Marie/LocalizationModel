@@ -7,7 +7,7 @@
 #include "metrics/metric.h"
 #include "metrics/levelSpacings.h"
 #include "resultFinder.h"
-#include "runSim1D.h"
+#include "runSimRyd.h"
 #include "metrics/avgEigVec.h"
 #include "metrics/utils.h"
 #include "metrics/inversePR.h"
@@ -61,7 +61,7 @@ int main(int argc, char** argv){
 
 	for (int i = 0; i< iterations; i++ ){
 		mat A(numSites,numSites);
-		runSim1D(W, numSites,A,jComputer);
+		runSimRyd(W, numSites,A,jComputer);
 		rf.saveResults(A, iterations);
 	}
 	about.printResult();

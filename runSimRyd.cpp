@@ -4,7 +4,7 @@
 #include <string>
 #include "jComputer.h"
 #include "findE.h"
-#include "runSim1D.h"
+#include "runSimRyd.h"
 using namespace arma;
 using namespace std;
 
@@ -24,7 +24,7 @@ int is_symmetric(const mat& A){
 	return 1;
 }
 
-void runSim1D(double W, int length, mat& A, JComputer& jComputer){
+void runSimRyd(double W, int length, mat& A, JComputer& jComputer){
 
 	if (W==0){
 	cerr<<"W was zero\n";
@@ -44,16 +44,12 @@ void runSim1D(double W, int length, mat& A, JComputer& jComputer){
 	}
 	double j = 1;
 	for (int xi = 0; xi<length;xi++){
-		for (int xj = 0; xj<length; xj++){
-			if(xi == xj) {
-				continue;
-			}
+		for (int xj = xi + 1; xj<length; xj++){
 			j = jComputer.jFinder(xi,xj);
 			A(xi, xj) = j;
 			A(xj, xi) = j;
 			}
 		}
-	//A.print();
 	if(!is_symmetric(A)){
 		cerr<<"Matrix Not Hermitian!\n";
 		throw "Matrix not Hermitian!\n";

@@ -14,7 +14,7 @@ metric.cpp (metric.h) - This is an abstract class to describe different metrics 
 
 utils.cpp (utils.h) - This is a file to put miscellaneous useful functions, which currently just contains functions to create date strings
 
-runSim1D.cpp(runSim1D.h) - This is the file which actually generates the random matrices
+runSimRyd.cpp(runSimRyd.h) - This is the file which actually generates the random matrices
 
 resultFinder.cpp (resultFinder.h) - This file diagonalizes the matrices and calls the functions in the metrics to find infromation about them
 

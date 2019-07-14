@@ -6,7 +6,7 @@
 #include "jComputer.h"
 #include "findE.h"
 #include "runSimA.h"
-#include "runSim1D.h"
+#include "runSimRyd.h"
 using namespace arma;
 using namespace std;
 

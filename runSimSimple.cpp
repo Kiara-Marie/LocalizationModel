@@ -3,7 +3,7 @@
 #include <armadillo>
 #include <string>
 #include "jComputer.h"
-#include "runSim1D.h"
+#include "runSimRyd.h"
 #include "runSimSimple.h"
 
 using namespace arma;
@@ -28,7 +28,7 @@ void runSimSimple(double W, int length, mat& A, JComputer& jComputer){
 		energies = energies - toRmv;
 	} else {
 		energies.ones();
-		energies = energies *2;
+		energies = energies * 2;
 	}
 	A.diag() = energies;
 	if (jComputer.needsEnergy){

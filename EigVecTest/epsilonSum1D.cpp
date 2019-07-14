@@ -7,7 +7,7 @@
 #include "metrics/metric.h"
 #include "metrics/levelSpacings.h"
 #include "resultFinder.h"
-#include "runSim1D.h"
+#include "runSimRyd.h"
 #include "metrics/avgEigVec.h"
 #include "metrics/utils.h"
 #include "metrics/inversePR.h"

@@ -16,7 +16,7 @@
 #include "../../metrics/metric.h"
 #include "../../metrics/levelSpacings.h"
 #include "../../resultFinder.h"
-#include "../../runSim1D.h"
+#include "../../runSimRyd.h"
 #include "../../metrics/avgEigVec.h"
 #include "../../metrics/utils.h"
 #include "../../metrics/inversePR.h"
@@ -134,7 +134,7 @@ TEST(RunSim1D, SimpleSims){
                       {2, 2, 3},
                       {1, 4, 3}
                     };
-    EXPECT_NO_THROW(runSim1D(W,3,notSymMat, testJC));
+    EXPECT_NO_THROW(runSimRyd(W,3,notSymMat, testJC));
     for (int i = 0; i<3;i++){
         for (int j = 0 ; j<3; j++){
             if (i != j){
@@ -147,7 +147,7 @@ TEST(RunSim1D, SimpleSims){
     }
 
     // W = 0 should throw an error
-    EXPECT_ANY_THROW(runSim1D(0,3,notSymMat,testJC));
+    EXPECT_ANY_THROW(runSimRyd(0,3,notSymMat,testJC));
 
 }
 
