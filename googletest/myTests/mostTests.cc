@@ -12,6 +12,7 @@
 #include <string>
 #include <fstream>
 #include <ostream>
+#include <vector>
 #include "../../metrics/metric.h"
 #include "../../metrics/levelSpacings.h"
 #include "../../resultFinder.h"
@@ -61,7 +62,7 @@ namespace {
 
 int MIN_N = 30;
 
-// Tests that the date given is correct
+// Tests that the date given isn't crazy
 TEST(UtilsTest,GetDate) {
   int firstVal = (int) (*getDate().begin()) - '0';
   EXPECT_LE(firstVal, 3);
@@ -212,6 +213,30 @@ TEST(RunSimSimple, SimpleSims){
         }
     }
 
+}
+
+TEST(ResultFinder, Simple){
+
+    vector<metric*> metrics;
+    ResultFinder rf = ResultFinder(metrics);
+    // make sure any matrix you are testing is symmetric, 
+    // because our diagonalization expects symmetric matrices 
+    mat A =     {{1, 2, 1},
+                 {2, 2, 3},
+                 {1, 3, 3}
+                };
+    pair<vec, mat> resultPair = rf.saveResults(A,3);
+    vec eigval = resultPair.first;
+    mat eigvec = resultPair.second;
+    //Apply A to first eigvec 
+    vec applyA = A * eigvec.col(0);
+	// Multiplied first eigvec by first eigval
+	vec byFactor = eigvec.col(0) * eigval(0);
+	// if diagonalization happened properly, they should be equal
+    for (unsigned int i = 0; i< byFactor.n_elem; i++){
+        EXPECT_DOUBLE_EQ(byFactor(i), applyA(i));
+    }
+    
 }
 
 
