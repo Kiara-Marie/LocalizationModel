@@ -66,7 +66,7 @@ clean :
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
 objects = ../../metrics/avgEigVec.o ../../metrics/inversePR.o ../../metrics/levelSpacings.o  ../../metrics/metric.o ../../jComputer.o ../../resultFinder.o \
-		    ../../jComputers/lorentz.o ../../runSimRyd.o ../../metrics/utils.o ../../metrics/aboutRun.o ../../metrics/energyLevels.o \
+		    ../../jComputers/lorentz.o ../../simRunner.o ../../runSimRyd.o ../../metrics/utils.o ../../metrics/aboutRun.o ../../metrics/energyLevels.o \
 			../../findE.o ../../runSimA.o ../../runSimSimple.o ../../resultNoDiag.o ../../jComputers/lorentzWithoutRDep.o ../../jComputers/gauss.o \
 			../../jComputers/constant.o
 

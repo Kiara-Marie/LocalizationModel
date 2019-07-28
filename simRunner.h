@@ -15,9 +15,8 @@ class SimRunner {
         explicit SimRunner();
 		~SimRunner();
 		SimRunner( const SimRunner& anotherSimRunner );
-        double findT(int xi, int xj);
         int is_symmetric(const mat& A);
-        virtual void getEnergies(int length, vec& energies, double W);
         virtual void runSim(double W, int length, mat& A, JComputer& jComputer);
-}
+};
+
 #endif

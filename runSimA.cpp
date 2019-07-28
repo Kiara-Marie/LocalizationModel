@@ -38,9 +38,10 @@ void runSimA(double W, int length, mat& A, JComputer& jComputer){
 			}
 		}
 	//A.print();
-	if(!is_symmetric(A)){
+	/* if(!is_symmetric(A)){
 		cerr<<"Matrix Not Hermitian!\n";
 	}
+	*/
 	return;
 }
 

@@ -12,6 +12,5 @@ using namespace arma;
 
 void runSimSimple(double W, int length, mat& A, JComputer& jComputer);
 
-double findT(int xi, int xj);
 
 #endif

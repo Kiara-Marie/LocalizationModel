@@ -1,18 +1,21 @@
-#ifndef _RUNSIM1D_H_
-#define _RUNSIM1D_H_
+#ifndef _RUNSIMRYD_H_
+#define _RUNSIMRYD_H_
 #include <iostream>
 #include <math.h>
 #include <armadillo>
 #include <string>
-#include "jComputer.h"
+#include "simRunner.h"
 
 using namespace std;
 using namespace arma;
 
-void runSimRyd(double W, int length, mat& A, JComputer& jComputer);
+class RunSimRyd : public SimRunner {
+    public:
+        const static int MIN_N = 30;
+        void runSim(double W, int length, mat& A, JComputer& jComputer);
+    private:
+        void getEnergies(int length, vec& energies, double W);
+        vec getNs(int length, double W);
+};
 
-double findT(int xi, int xj);
-int is_symmetric(const mat& A);
-void getEnergies(int length, vec& energies, double W);
-vec getNs(int length, double W);
 #endif

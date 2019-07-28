@@ -8,23 +8,7 @@
 using namespace arma;
 using namespace std;
 
-int MIN_N = 30;
-
-int is_symmetric(const mat& A){
-	if (A.n_rows != A.n_cols){
-		return 0;
-	}
-	for (unsigned int i = 0; i< A.n_rows;i++){
-		for (unsigned int j = 0; j<A.n_cols;j++){
-			if(A(i,j) != A(j,i)){
-				return 0;
-			}
-		}
-	}
-	return 1;
-}
-
-void runSimRyd(double W, int length, mat& A, JComputer& jComputer){
+void RunSimRyd::runSim(double W, int length, mat& A, JComputer& jComputer){
 
 	if (W==0){
 	cerr<<"W was zero\n";
@@ -36,7 +20,7 @@ void runSimRyd(double W, int length, mat& A, JComputer& jComputer){
 	}
 
 	vec energies = zeros(length);
-	getEnergies(length, energies, W);
+	this->getEnergies(length, energies, W);
 
 	A.diag() = energies;
 	if (jComputer.needsEnergy){
@@ -50,16 +34,16 @@ void runSimRyd(double W, int length, mat& A, JComputer& jComputer){
 			A(xj, xi) = j;
 			}
 		}
-	if(!is_symmetric(A)){
+	if(!this->is_symmetric(A)){
 		cerr<<"Matrix Not Hermitian!\n";
 		throw "Matrix not Hermitian!\n";
 	}
 	return;
 }
 
-void getEnergies(int length, vec& energies, double W){
+void RunSimRyd::getEnergies(int length, vec& energies, double W){
 
-	vec nValues = getNs(length, W);
+	vec nValues = this->getNs(length, W);
 
 	// generate a vector of values between 0 and 1, then multiply element-wise
 	// by n
@@ -75,14 +59,14 @@ void getEnergies(int length, vec& energies, double W){
 
 }
 
-vec getNs(int length, double W){
+vec RunSimRyd::getNs(int length, double W){
 	// make random
 	arma_rng::set_seed_random();
 
 	// set up
 	vec nValues = randu<vec>(length) * W;
 	nValues.transform( [](double val) { return floor(val); } );
-	nValues.transform( [](double val) { return val + MIN_N; } );
+	nValues.transform( [](double val) { return val + RunSimRyd::MIN_N; } );
 
 	return nValues;
 }

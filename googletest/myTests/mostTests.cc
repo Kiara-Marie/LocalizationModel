@@ -60,7 +60,7 @@ namespace {
 //
 // </TechnicalDetails>
 
-int MIN_N = 30;
+
 
 // Tests that the date given isn't crazy
 TEST(UtilsTest,GetDate) {
@@ -95,37 +95,38 @@ TEST(FindE, BindingEnergy){
     EXPECT_LT(bindingEnergy(n,smallDefectL),bindingEnergy(n,bigDefectL));
 }
 
-TEST(RunSim1D,IsSymmetric){
+TEST(RunSimRyd,IsSymmetric){
+    RunSimRyd simRunner = *(new RunSimRyd());
     mat A = { {1, 3, 5},
               {2, 4, 6} };
-    EXPECT_FALSE(is_symmetric(A));
+    EXPECT_FALSE(simRunner.is_symmetric(A));
 
     mat B = { {1, 2, 1},
               {2, 2, 3},
               {1, 3, 3}
           };
-    EXPECT_TRUE(is_symmetric(B));
+    EXPECT_TRUE(simRunner.is_symmetric(B));
 
     mat C = { {1, 2, 1},
               {2, 2, 3},
               {1, 4, 3}
           };
 
-    EXPECT_FALSE(is_symmetric(C));
+    EXPECT_FALSE(simRunner.is_symmetric(C));
 }
-
-TEST(RunSim1D, GetNs){
+/* 
+TEST(RunSimRyd, GetNs){
     double W = 15;
     int len = 30;
     vec nValues = getNs(len,W);
 
     for (int i = 0; i < len; i++){
-        EXPECT_GE(nValues(i), MIN_N);
-        EXPECT_LE(nValues(i), MIN_N + W);
+        EXPECT_GE(nValues(i), RunSimRyd.MIN_N);
+        EXPECT_LE(nValues(i), RunSimRyd.MIN_N + W);
     }
 }
-
-TEST(RunSim1D, SimpleSims){
+*/
+TEST(RunSimRyd, SimpleSims){
     Constant testJC = Constant(4,0,0);
     double W = 3;
     double t = 4;
@@ -134,7 +135,8 @@ TEST(RunSim1D, SimpleSims){
                       {2, 2, 3},
                       {1, 4, 3}
                     };
-    EXPECT_NO_THROW(runSimRyd(W,3,notSymMat, testJC));
+    RunSimRyd simRunner = *(new RunSimRyd());
+    EXPECT_NO_THROW(simRunner.runSim(W,3,notSymMat, testJC));
     for (int i = 0; i<3;i++){
         for (int j = 0 ; j<3; j++){
             if (i != j){
@@ -147,7 +149,7 @@ TEST(RunSim1D, SimpleSims){
     }
 
     // W = 0 should throw an error
-    EXPECT_ANY_THROW(runSimRyd(0,3,notSymMat,testJC));
+    EXPECT_ANY_THROW(simRunner.runSim(0,3,notSymMat,testJC));
 
 }
 
