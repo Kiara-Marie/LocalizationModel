@@ -73,12 +73,6 @@ TEST(UtilsTest,GetTime){
     EXPECT_EQ (first, 'T');
 }
 
-TEST(JComputer, Plain){
-    JComputer myJC = JComputer(3,0,2);
-    JComputer copyJC = JComputer(myJC);
-    ASSERT_ANY_THROW(myJC.jFinder(3,4));
-}
-
 TEST(FindE, BindingEnergy){
     // No defect
     int ndn = 30;

@@ -17,7 +17,7 @@ class JComputer {
 		explicit JComputer(double arg1,int nnOnly, int arg3);
 		~JComputer();
 		JComputer( const JComputer& anotherJComputer );
-		virtual double jFinder(int xi,int xj);
+		virtual double jFinder(int xi,int xj)=0;
 		virtual string methodDesc();
 		virtual void additionalInfo(vec info);
 	protected:

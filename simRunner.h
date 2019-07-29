@@ -9,14 +9,13 @@
 using namespace std;
 using namespace arma;
 
-
 class SimRunner {
 	public:
         explicit SimRunner();
 		~SimRunner();
 		SimRunner( const SimRunner& anotherSimRunner );
         int is_symmetric(const mat& A);
-        virtual void runSim(double W, int length, mat& A, JComputer& jComputer);
+        virtual void runSim(double W, int length, mat& A, JComputer& jComputer)=0;
 };
 
 #endif
