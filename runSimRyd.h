@@ -13,9 +13,8 @@ class RunSimRyd : public SimRunner {
     public:
         const static int MIN_N = 30;
         void runSim(double W, int length, mat& A, JComputer& jComputer);
-    private:
-        void getEnergies(int length, vec& energies, double W);
-        vec getNs(int length, double W);
+        virtual void getEnergies(int length, vec& energies, double W);
+        void getNsAndLs(int length, double W, vec& nValues, vec& lValues);
 };
 
 #endif

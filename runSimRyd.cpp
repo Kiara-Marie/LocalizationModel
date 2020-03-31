@@ -43,13 +43,10 @@ void RunSimRyd::runSim(double W, int length, mat& A, JComputer& jComputer){
 
 void RunSimRyd::getEnergies(int length, vec& energies, double W){
 
-	vec nValues = this->getNs(length, W);
-
-	// generate a vector of values between 0 and 1, then multiply element-wise
-	// by n
-	vec lValues = randu<vec>(length) % nValues ;
-	lValues.transform( [](double val) { return floor(val); } );
-
+	vec nValues;
+	vec lValues;
+	this->getNsAndLs(length, W, nValues, lValues);
+	
 	for (int i = 0; i < length; i++){
 		char nc = (char) nValues(i);
 		char lc = (char) lValues(i);
@@ -59,14 +56,18 @@ void RunSimRyd::getEnergies(int length, vec& energies, double W){
 
 }
 
-vec RunSimRyd::getNs(int length, double W){
+void RunSimRyd::getNsAndLs(int length, double W, vec& nValues, vec& lValues){
 	// make random
 	arma_rng::set_seed_random();
 
 	// set up
-	vec nValues = randu<vec>(length) * W;
+	nValues = randu<vec>(length) * W;
 	nValues.transform( [](double val) { return floor(val); } );
 	nValues.transform( [](double val) { return val + RunSimRyd::MIN_N; } );
 
-	return nValues;
+	lValues = randu<vec>(length) % nValues ;
+	lValues.transform( [](double val) { return floor(val); } );
+
+
+	return;
 }

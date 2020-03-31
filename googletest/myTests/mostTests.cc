@@ -108,18 +108,23 @@ TEST(RunSimRyd,IsSymmetric){
 
     EXPECT_FALSE(simRunner.is_symmetric(C));
 }
-/* 
+/*
+
 TEST(RunSimRyd, GetNs){
     double W = 15;
     int len = 30;
-    vec nValues = getNs(len,W);
+    RunSimRyd simRunner = RunSimRyd();
 
+    vec nValues;
+    vec lValues;
+    simRunner.getNsAndLs(len,W,nValues,lValues);
     for (int i = 0; i < len; i++){
-        EXPECT_GE(nValues(i), RunSimRyd.MIN_N);
-        EXPECT_LE(nValues(i), RunSimRyd.MIN_N + W);
+        EXPECT_GE(nValues(i), RunSimRyd::MIN_N);
+        EXPECT_LE(nValues(i), RunSimRyd::MIN_N + W);
     }
 }
-*/
+ */
+
 TEST(RunSimRyd, SimpleSims){
     Constant testJC = Constant(4,0,0);
     double W = 3;
@@ -150,12 +155,13 @@ TEST(RunSimRyd, SimpleSims){
 TEST(RunSimA, SimpleSims){
     Constant testJC = Constant(4,0,0);
 
+    RunSimA simRunner = RunSimA(); 
     // unsymmetric matrix shouldn't throw an error, since it should be overwritten
     mat notSymMat = { {1, 2, 1},
                       {2, 2, 3},
                       {1, 4, 3}
                     };
-    EXPECT_NO_THROW(runSimA(3,3,notSymMat, testJC));
+    EXPECT_NO_THROW(simRunner.runSim(3,3,notSymMat, testJC));
     for (int i = 0; i<3;i++){
         for (int j = 0 ; j<3; j++){
             if (i != j){
@@ -168,7 +174,7 @@ TEST(RunSimA, SimpleSims){
     }
 
     // W = 0 should throw an error
-    EXPECT_ANY_THROW(runSimA(0,3,notSymMat,testJC));
+    EXPECT_ANY_THROW(simRunner.runSim(0,3,notSymMat,testJC));
 
 }
 

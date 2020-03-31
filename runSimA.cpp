@@ -10,9 +10,8 @@
 using namespace arma;
 using namespace std;
 
-double MAXJUMP = 1;
 
-void runSimA(double W, int length, mat& A, JComputer& jComputer){
+void RunSimA::runSim(double W, int length, mat& A, JComputer& jComputer){
 
 	if (W==0){
 	cerr<<"W was zero\n";
@@ -20,7 +19,7 @@ void runSimA(double W, int length, mat& A, JComputer& jComputer){
 	}
 
 	vec energies = zeros(length);
-	getEnergiesA(length, energies, W);
+	getEnergies(length, energies, W);
 
 	A.diag() = energies;
 	if (jComputer.needsEnergy){
@@ -45,20 +44,15 @@ void runSimA(double W, int length, mat& A, JComputer& jComputer){
 	return;
 }
 
-void getEnergiesA(int length, vec& energies, double W){
+void RunSimA::getEnergies(int length, vec& energies, double W){
 	// make random
 	arma_rng::set_seed_random();
 	default_random_engine generator;
-	uniform_int_distribution<int> distribution(1,MAXJUMP);
+	uniform_int_distribution<int> distribution(1,this->MAX_JUMP);
 
-	// set up
-	vec nValues = randu<vec>(length) * W;
-	nValues.transform( [](double val) { return ceil(val) + 1; } );
-
-	 // generate a vector of values between 0 and 1, then multiply element-wise
-	 // by n
-	vec lValues = randu<vec>(length) % nValues ;
-	lValues.transform( [](double val) { return floor(val); } );
+	vec nValues;
+	vec lValues;
+	this->getNsAndLs(length, W, nValues, lValues);
 
 	for (int i = 0; i < length; i++){
 		char nc = (char) nValues(i);

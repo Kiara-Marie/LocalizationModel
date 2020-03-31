@@ -57,7 +57,7 @@ all: $(GTEST_LIBS) $(TESTS)
 endif
 
 clean :
-	rm -f $(GTEST_LIBS) $(TESTS) *.o
+	rm -f $(GTEST_LIBS) $(TESTS) $(objects) *.o
 
 # Builds gtest.a and gtest_main.a.
 
