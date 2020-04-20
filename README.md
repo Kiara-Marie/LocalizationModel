@@ -1,4 +1,4 @@
-#Program Information
+# Program Information
 
 This program creates a matrix representing a lattice of two-level systems with numSites sites, with random spacings between the levels, as specified in the diagonal terms, with random interactions on the off-diagonals.  
 
@@ -36,6 +36,6 @@ Those used in the current version are:
 **Makefile** - This compiles the whole thing
 
 
-#Testing
+# Testing
 
 There is a folder called googletest, in which I have started doing some testing. You can run the tests by going into googletest/make and running ./mostTests. The file which contains the tests is googletest/myTests/mostTests.cc
