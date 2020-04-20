@@ -14,8 +14,21 @@ metric.cpp (metric.h) - This is an abstract class to describe different metrics 
 
 utils.cpp (utils.h) - This is a file to put miscellaneous useful functions, which currently just contains functions to create date strings
 
-runSimRyd.cpp(runSimRyd.h) - This is the file which actually generates the random matrices
+findE.cpp (findE.h) - This file is actually written in C, and is basically also some utils which can be used for computing energies
 
-resultFinder.cpp (resultFinder.h) - This file diagonalizes the matrices and calls the functions in the metrics to find infromation about them
+simRunner.cpp (simRunner.h) - This is an abstract class for the step which creates the random matrices (the diagonal entries). Current subclasses include:
+
+	runSimRid.cpp
+	runSimSimple.cpp
+	runSimA.cpp
+
+jComputer.cpp (jComputer.h) - This is also an abstract class. There are many options of jComputer, which compute the off-diagonal elements, and they are all found in the jComputers folder. They include:
+
+	constant.cpp
+	gauss.cpp
+	lorentz.cpp
+	lorentzWithoutRDep.cpp
+
+resultFinder.cpp (resultFinder.h) - This file diagonalizes the matrices and calls the functions in the metrics to find infromation about them. Another option is resultFinderNoDiag.cpp which does not diagonalize the matrices, which is sometimes useful for debugging / sanity checks.
 
 Makefile - This compiles the whole thing
